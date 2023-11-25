@@ -1,5 +1,5 @@
 
-const gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
+let gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
 
 function resetGame(){
     gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
@@ -20,24 +20,20 @@ function placeToken(i, j, k){
     
     for(let index = i; index < gameBoard.length; index++){
         for(let inner = j; inner < gameBoard[index].length; inner++){
-            if(gameBoard[index][inner] == 0){
+            if(gameBoard[index][inner] != 0){
+                console.log('invalid placement. try again');
+                break;
+    
+            } else {
                 gameBoard[i][j] = Player[k].value;
                 console.log(`${Player[k].name} played a token`);
                 lastMove = k;
                 break;
-
-            } else{
-                console.log('invalid placement. try again');
-                break;
-            }
+            
         }
     }
     console.table(gameBoard);  
     console.log(`the previous move was by ${Player[lastMove].name}`)
     return lastMove;           
 }
-
-
-
-
-
+}
