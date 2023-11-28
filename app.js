@@ -1,64 +1,73 @@
 
 let gameBoard;
-let k;
+let tracker = 0;
+function createPlayer(name, value){
+    return {
+        name: name,
+        value: value,
+    }
+}
+
+const player1 = createPlayer('Player 1', 1);
+const player2 = createPlayer('Player 2', 2);
+let player = [player1, player2];
 
 
 function resetGame(){
-    gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
-    k = 0; 
+    gameBoard = [[0,0,0],[0,0,0],[0,0,0]]; 
+    console.table(gameBoard)
+//    gameBoard = [[1,2,2],[2,1,2],[0,2,1]];
 }   
-
-
-const Player = [
-    {name: 'Player 1',
-     value: 1,
-    },
-    {name: 'Player 2',
-     value: 2,
-    }]
 
 
 function alternatePlayer(currentPlayer){
 
-    if(currentPlayer === 0){
-        return k = 1
+    if(currentPlayer.value == 1){
+        return player[1];
     } else {
-        return k = 0
+        return player[0];
     }
 }
 
-function placeToken(i, j, k){
-    
+function placeToken(i, j, player){
+    // let nextPlayer;
     for(let index = i; index < gameBoard.length; index++){
+        if(typeof(nextPlayer) == 'undefined'){
+            nextPlayer = alternatePlayer(player);
+        }
         for(let inner = j; inner < gameBoard[index].length; inner++){
             if(gameBoard[index][inner] != 0){
                 console.log('invalid placement. try again');
-                // return `${Player[k].name}'s turn` ;
-            
-    
+
             } else {
-                gameBoard[i][j] = Player[k].value;
-                console.log(`${Player[k].name} played a token`);
-                let testWin =  checkWin(k+1)
-                if(testWin === true){
-                    return `${Player[k].name} Wins!`
-                }else {
-                    k = alternatePlayer(k);
+                gameBoard[i][j] = nextPlayer.value;
+                tracker++;
+                console.log(`${nextPlayer.name} played a token`, 'moves:', tracker);
+                let testWin =  checkWin(nextPlayer);
+                let testDraw = checkDraw();
+                if(testDraw){
+                    return "Its a Draw";
                 }
-                
+                if(testWin){
+                    console.table(gameBoard);  
+                    return `${nextPlayer.name} Wins!`
+                }else {
+                    nextPlayer = alternatePlayer(nextPlayer);
+                    console.table(gameBoard);  
+                    console.log(`${nextPlayer.name}'s turn` );
+                    return 
+                }
             }
-            console.table(gameBoard);  
-            return `${Player[k].name}'s turn` ;
         }
     }
 }
 
 function checkWin(player){
-    
+    player = player.value;
     for(let i = 0; i < 3; i++){
         if(gameBoard[0][i] === player && gameBoard[1][i] === player && gameBoard[2][i] === player || 
             gameBoard[i][0] === player && gameBoard[i][1] === player && gameBoard[i][2] === player){
-                return  true;
+                return true;
             }
 
         }if(gameBoard[0][0] === player && gameBoard[1][1] === player && gameBoard[2][2] === player || 
@@ -67,5 +76,13 @@ function checkWin(player){
         } else {
             return false;
         }
+}
+;
+function checkDraw(){
+    if(tracker === 9) {
+        return true
+    } else {
+        return false
+    }
 }
 resetGame();
