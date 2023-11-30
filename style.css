@@ -1,0 +1,39 @@
+.game-container{
+    /* border: 1px solid black; */
+    border-radius: 15px;
+    overflow: hidden;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    right: 25%;
+    margin: 0 auto;
+    width:498px;
+    height: 498px;
+    display: grid;
+    grid-template-columns:repeat(3, 166px) ;
+    grid-template-rows:repeat(3, 166px) ;
+}
+
+.token-slot{
+border: 1px solid black;
+}
+
+.token-slot:hover{
+    background-color: rgba(69, 69, 255, 0.244);
+}
+
+.one, .four, .seven{
+    border-left: none;
+}
+
+.three, .six, .nine{
+    border-right: none;
+}
+
+.one, .two, .three {
+    border-top: none;
+}
+
+.seven, .eight, .nine{
+    border-bottom: none;
+}

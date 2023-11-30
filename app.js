@@ -96,3 +96,12 @@ const checkDraw = function (){
 return {createPlayer, player, resetGame, alternatePlayer, placeToken, checkWin, checkDraw};
 
 })();
+
+
+const gameCells = document.querySelector('.game-container').children;
+let gameCell = Array.from(gameCells)
+gameCell.forEach(element => {
+    element.addEventListener('click', () => {
+        console.log('clicked')
+    })
+});
